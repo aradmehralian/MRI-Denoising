@@ -53,7 +53,7 @@ def add_salt_and_pepper_noise(image, salt_prob, pepper_prob):
     return noisy_image
 
 
-def imshow(image: np.ndarray, title: str, size: (int|float) = 10) -> None:
+def imshow(image: np.ndarray, title: str, size: (int|float) = 5) -> None:
     """
     Shows image given its matrix along with title. Size of the image can be adjusted.
 
@@ -68,7 +68,7 @@ def imshow(image: np.ndarray, title: str, size: (int|float) = 10) -> None:
     h, w = image.shape[0], image.shape[1]
     aspect_ratio = h/w
     plt.figure(figsize=(size * aspect_ratio,size))
-    plt.imshow(image)
+    plt.imshow(image, cmap= 'gray')
     plt.title(title.title())
     plt.show()
 
