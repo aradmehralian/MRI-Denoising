@@ -16,7 +16,7 @@ def level_B(z_min, z_med, z_max, z_xy):
     
 def level_A(z_min, z_med, z_max, z_xy, S_xy, S_max):
     if(z_min < z_med < z_max):
-        return level_B(z_min, z_med, z_max, z_xy, S_xy, S_max)
+        return level_B(z_min, z_med, z_max, z_xy)
     else:
         S_xy += 2 #increase the size of S_xy to the next odd value.
         if(S_xy <= S_max): #repeat process
@@ -24,7 +24,7 @@ def level_A(z_min, z_med, z_max, z_xy, S_xy, S_max):
         else:
             return z_med
         
-def adaptive_median_filter(image, initial_window, max_window):
+def adaptive_median_filter(image, initial_window=3, max_window=11):
     """runs the Adaptive Median Filter proess on an image"""
     h, w = image.shape #get the shape of the image.
     

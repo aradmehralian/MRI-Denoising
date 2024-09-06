@@ -26,7 +26,7 @@ def bilateral_filter_decomposition(image, d=9, sigma_color=75, sigma_space=75):
     return edge_layer, residual_layer
 
 
-def k_svd_denoising(residual_layer, patch_size=8, n_components=100, max_iter=10):
+def k_svd_denoising(residual_layer, patch_size=16, n_components=50, max_iter=5):
     """
     Apply the K-SVD algorithm to denoise the residual layer.
     
