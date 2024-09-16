@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-def add_gaussian_noise(image, std):
+def add_gaussian_noise(image: np.ndarray, std: float) -> np.ndarray:
     """
     Adds Gaussian noise to a given image.
 
@@ -19,12 +19,12 @@ def add_gaussian_noise(image, std):
         The noisy image with Gaussian noise added. The output image is of the same size and type as the input image.
      """
       
-    noise = np.random.normal(0, std, image.shape).astype(np.uint8)
+    noise = np.random.normal(0, std, image.shape).astype(np.uint8) # noise is considered zero-mean
     noisy_image = cv2.add(image, noise)
     return noisy_image
 
 
-def add_salt_and_pepper_noise(image, salt_prob, pepper_prob):
+def add_salt_and_pepper_noise(image: np.ndarray, salt_prob: float, pepper_prob: float) -> np.ndarray:
     """
     Adds salt-and-pepper noise to a given grayscale image.
 
@@ -57,12 +57,17 @@ def imshow(image: np.ndarray, title: str, size: (int|float) = 5) -> None:
     """
     Shows image given its matrix along with title. Size of the image can be adjusted.
 
-    Args:
-        image (np.ndarray): Image matrix.
-        title (str): Title of the image.
-        size (int|float): Size of the image to be displayed.
+    Parameters:
+    ----------
+    image : np.ndarray
+        Image matrix.
+    title : str
+        Title of the image.
+    size : (int|float)
+        Size of the image to be displayed.
 
     Returns:
+    -------
         None
     """
     h, w = image.shape[0], image.shape[1]
@@ -72,16 +77,16 @@ def imshow(image: np.ndarray, title: str, size: (int|float) = 5) -> None:
     plt.title(title.title())
     plt.show()
 
-def calculate_psnr(original: np.ndarray, filtered_img: np.ndarray):
+def calculate_psnr(original: np.ndarray, filtered_img: np.ndarray) -> float:
     """
-    Calculates the Peak Signal-to-Noise Ratio (PSNR) between a noisy image and its noiseless counterpart.
+    Calculates the Peak Signal-to-Noise Ratio (PSNR) between a noisy image and its noiseless or filtered counterpart.
 
     Parameters:
     ----------
     original : numpy.ndarray
         The original noiseless image. It should be a 2D or 3D array representing pixel values.
     noisy : numpy.ndarray
-        The noisy image. It should be a 2D or 3D array of the same size and type as the original image.
+        The noisy image or filtered. It should be a 2D or 3D array of the same size and type as the original image.
 
     Returns:
     -------

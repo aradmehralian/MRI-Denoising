@@ -1,20 +1,20 @@
 import numpy as np
 import cv2
 
-def adaptive_wiener_filter(image, kernel_size=5):
+def adaptive_wiener_filter(image: np.ndarray, kernel_size=5) -> np.ndarray:
     """
     Apply Adaptive Wiener filter to an input image.
 
     Parameters:
     - image: Input grayscale image (2D numpy array).
-    - kernel_size: Size of the local window (odd number).
+    - kernel_size: Size of the local window with default value 5.
 
     Returns:
     - Filtered image.
     """
     image = image.astype(np.float64) # convert to float64 for better precision
     local_mean = cv2.blur(image, (kernel_size, kernel_size))
-    local_var = cv2.blur(image ** 2, (kernel_size, kernel_size)) - local_mean ** 2
+    local_var = cv2.blur(image ** 2, (kernel_size, kernel_size)) - local_mean ** 2 # Variance = Mean of squared values - mean ** 2
     noise_variance = np.mean(local_var)
 
     # Adaptive Wiener filter formula

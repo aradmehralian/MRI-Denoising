@@ -3,7 +3,7 @@ import cv2
 from sklearn.decomposition import DictionaryLearning
 from scipy.ndimage import uniform_filter
 
-def bilateral_filter_decomposition(image, d=9, sigma_color=75, sigma_space=75):
+def bilateral_filter_decomposition(image: np.ndarray, d=9, sigma_color=75, sigma_space=75):
     """
     Decompose the image using bilateral filtering into an edge layer and a residual layer.
     
@@ -19,8 +19,6 @@ def bilateral_filter_decomposition(image, d=9, sigma_color=75, sigma_space=75):
     """
     # Apply bilateral filter to get the edge-preserved layer
     edge_layer = cv2.bilateralFilter(image, d=d, sigmaColor=sigma_color, sigmaSpace=sigma_space)
-    
-    # Calculate the residual layer (original - edge layer)
     residual_layer = image.astype(np.float64) - edge_layer.astype(np.float64)
     
     return edge_layer, residual_layer
@@ -56,7 +54,7 @@ def k_svd_denoising(residual_layer, patch_size=16, n_components=50, max_iter=5):
     return denoised_residual_layer
 
 
-def extract_patches(image, patch_size):
+def extract_patches(image: np.ndarray, patch_size: int) -> np.ndarray:
     """
     Extract overlapping patches from the image.
     
@@ -75,7 +73,7 @@ def extract_patches(image, patch_size):
     return np.array(patches)
 
 
-def reconstruct_image_from_patches(patches, image_shape, patch_size):
+def reconstruct_image_from_patches(patches: np.ndarray, image_shape: tuple, patch_size: int) -> np.ndarray:
     """
     Reconstruct the image from denoised patches.
     
@@ -99,7 +97,7 @@ def reconstruct_image_from_patches(patches, image_shape, patch_size):
     return reconstructed_image
 
 
-def merge_layers(edge_layer, denoised_residual_layer):
+def merge_layers(edge_layer, denoised_residual_layer) -> np.ndarray:
     """
     Merge the edge-preserved layer with the denoised residual layer.
     
